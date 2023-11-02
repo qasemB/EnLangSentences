@@ -1,0 +1,79 @@
+:root {
+    --blue: #3182ce;
+    --pink: #ed64a6;
+    --dark: #292d3e;
+}
+
+@font-face {
+    font-family: "DanaMed";
+    src: url("/fonts/fa/Dana-Medium.ttf") format("truetype");
+}
+
+*{
+    font-family: DanaMed;
+    color: var(--dark);
+}
+.bg_blue{
+    background: var(--blue);
+}
+.bg_pink{
+    background: var(--pink);
+}
+.bg_dark{
+    background: var(--dark);
+}
+.text_blue{
+    color: var(--blue);
+}
+.text_dark{
+    color: var(--dark);
+}
+.text_pink{
+    color: var(--pink);
+}
+.pointer{
+    cursor: pointer !important;
+}
+
+.is_blur{
+    filter: blur(3px);
+}
+
+.transition_300{
+    transition: all 300ms ease;
+}
+
+.hoverable_text{
+    transition: all 300ms ease;
+}
+.hoverable_text:hover{
+    text-shadow: 0 0 5px gray;
+}
+
+@media(min-width: 768px) {
+    .w-md-50{
+        max-width: 51% !important;
+    }
+}
+
+
+/*------------------specific styles-------------------*/
+.main_content{
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - 113.2px);
+    bottom: 57px;
+    left: 0;
+    overflow: auto;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 57px;
+}
+
+#typing_box{
+    min-height: 56px;
+}
