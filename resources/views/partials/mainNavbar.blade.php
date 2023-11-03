@@ -1,6 +1,6 @@
 <nav class="navbar bg_blue fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="/images/logo.png" alt="Bootstrap" width="30" height="24"
                 style="filter: drop-shadow(0 0 2px blue)">
         </a>
@@ -27,7 +27,10 @@
                         <a class="nav-link text-center active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-center" href="#">Login</a>
+                        <a class="nav-link text-center" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center" href="/register">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-center" href="#">Settings</a>

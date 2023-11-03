@@ -88,6 +88,10 @@
     }
 }
 
+a{
+    text-decoration: none;
+}
+
 
 /*------------------specific styles-------------------*/
 #main_menu {
