@@ -31,6 +31,32 @@
 .text_pink{
     color: var(--pink);
 }
+
+.btn_blue {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--blue);
+    --bs-btn-border-color: var(--blue);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--blue);
+    --bs-btn-hover-border-color: var(--blue);
+    --bs-btn-focus-shadow-rgb: 60,153,110;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--blue);
+    --bs-btn-active-border-color: var(--blue);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--blue);
+    --bs-btn-disabled-border-color: var(--blue);
+}
+
+.hoverable{
+    transition: all 300ms ease;
+}
+
+.hoverable:hover{
+    box-shadow: 0 0 10px gray !important;
+}
+
 .pointer{
     cursor: pointer !important;
 }
@@ -56,8 +82,28 @@
     }
 }
 
+@media(max-width: 500px) {
+    .min_w_100{
+        min-width: 100% !important;
+    }
+}
+
 
 /*------------------specific styles-------------------*/
+#main_menu {
+    background: -webkit-gradient( linear, left top, left bottom, from(#ffffffbd), color-stop(rgba(255 255 255 / 80%)), to(#ffffff80) ), url(../images/lettersBack.png) no-repeat;
+    background: linear-gradient(#ffffffbd, rgb(255 255 255 / 80%), #ffffff80), url(../images/lettersBack.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+/* #main_menu {
+    background: -webkit-gradient( linear, left top, left bottom, from(#ffffffbd), color-stop(rgba(255 255 255 / 80%)), to(#ffffff80) ), url(../images/lettersBack2.jpg) no-repeat;
+    background: linear-gradient(#ffffffbd, rgb(255 255 255 / 80%), #ffffff80), url(../images/lettersBack2.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+} */
 .main_content{
     position: fixed;
     width: 100%;
@@ -76,4 +122,12 @@ footer{
 
 #typing_box{
     min-height: 56px;
+}
+
+#addSentenceOffCanvas{
+    position: fixed;
+    height: calc(100vh - 113.2px);
+    bottom: 57px;
+    top: unset !important;
+    overflow: auto;
 }
