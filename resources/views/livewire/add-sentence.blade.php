@@ -1,10 +1,10 @@
 <div>
-    <div class="text-center">
+    <div class="text-center mb-4">
         <button class="btn btn-light text_blue shadow" {{-- wire:click="$toggle('showAddModal')" --}} data-bs-toggle="offcanvas"
             data-bs-target="#addSentenceOffCanvas" aria-controls="addSentenceOffCanvas">Your own sentence</button>
     </div>
 
-    <div class="min_w_100 offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="addSentenceOffCanvas"
+    <div class="min_w_100 offcanvas offcanvas-start " data-bs-backdrop="static" tabindex="-1" id="addSentenceOffCanvas"
         aria-labelledby="addSentenceOffCanvasLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="addSentenceOffCanvasLabel">Add your own sentence</h5>

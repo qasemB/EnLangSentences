@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="w-100 h-100 d-flex justify-content-center align-items-center row m-0 p-0">
-        <form class="col-12 col-md-6 col-lg-4">
+        <form class="col-12 col-md-6 col-lg-4  mt-5">
 
             <h1 class="text-center">Login</h1>
 

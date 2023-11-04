@@ -1,4 +1,4 @@
-<nav class="navbar bg_blue fixed-top">
+<nav class="navbar bg_blue">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img src="/images/logo.png" alt="Bootstrap" width="30" height="24"

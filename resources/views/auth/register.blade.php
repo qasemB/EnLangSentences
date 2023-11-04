@@ -11,7 +11,7 @@
                 </ul>
             </div>
         @endif
-        <form class="col-12 col-md-6 col-lg-4" method="POST" action="{{ route('register', ['id' => 1]) }}">
+        <form class="col-12 col-md-6 col-lg-4 mt-5" method="POST" action="{{ route('register', ['id' => 1]) }}">
             @csrf
             <h1 class="text-center">Join us</h1>
             <div class="form-floating my-3" data-bs-toggle="tooltip" data-bs-placement="top"
