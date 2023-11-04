@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,16 +15,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// guests routes group-------------------------->>>
+Route::middleware(["guest"])->group(function (){
+    Route::get('/register', function () {return view('auth.register');});
+    Route::post('/register', [AuthController::class, "register"])->name("register");
+    Route::get('/login', function () {return view('auth.login');});
+    Route::post('/login', [AuthController::class, "login"])->name("login");
+});
+
+
+// authed routes group-------------------------->>>
+Route::middleware(["auth"])->group(function (){
+    Route::get('/logout', [AuthController::class, "logout"]);
+});
+
+// rest routes--------------------------------->>>
 Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/register', function () {
-    return view('auth.register');
-});
 
-Route::post('/register', [AuthController::class, "register"])->name("register");
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+
+

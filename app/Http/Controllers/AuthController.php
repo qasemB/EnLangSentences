@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
@@ -11,20 +12,8 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // $request->validate([
-        //     'phone' => 'required|string|unique:users,phone|numeric|digits:11',
-        //     'password' => [
-        //         'required', 'confirmed', Password::min(8)
-        //             ->mixedCase()
-        //             ->letters()
-        //             ->numbers()
-        //             ->symbols()
-        //             ->uncompromised(),
-        //     ],
-        //     'password_confirmation' => 'required|same:password',
-        // ]);
         $request->validate([
-            'phone' => 'required|string|unique:users,phone|numeric|digits:11',
+            'phone' => 'required|unique:users,phone|numeric|digits:11',
             'password' => [
                 'required', 'confirmed', Password::min(8)
                     ->letters()
@@ -39,5 +28,24 @@ class AuthController extends Controller
         $user->save();
 
         return redirect("/login");
+    }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|numeric|digits:11',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
+            return redirect("/")->with("successLogin", "You have successfully logged in");
+        }else{
+            return redirect()->back()->withErrors(["User does not exist"]);
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect("/");
     }
 }

@@ -9,7 +9,7 @@
 
     <div class="w-100 w-md-50 p-3 rounded shadow mt-4">
         <label>Now it's your turn, write the above</label>
-        <input id="typing_input" type="text" class="form-control">
+        <textarea id="typing_input" class="form-control" style="height: 60px"></textarea>
     </div>
 
     <div class="text-end mt-3 w-100 w-md-50">
@@ -18,7 +18,7 @@
 
     <h3 class="text-center mt-3 mb-4">And <br /> You can add</h3>
 
-    <livewire:add-sentence/>
+    <livewire:add-sentence />
 @endsection
 
 
