@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/bootstrap-5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="/fontawesome-free-6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     @livewireStyles
     <link rel="stylesheet" href="/css/style.css" />
     @yield('pageCss')
@@ -25,6 +26,7 @@
     @include('partials.mainFooter')
 
     <script src="/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     @livewireScripts
 
     <script>

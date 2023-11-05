@@ -21,12 +21,12 @@ return new class extends Migration
             $table->text("description")->nullable();
             $table->boolean("hide_for_others")->default(false);
             $table->boolean("is_active")->default(true);
-            $table->integer("like_count");
-            $table->integer("dislike_count");
-            $table->integer("view_count");
+            $table->integer("like_count")->default(0);
+            $table->integer("dislike_count")->default(0);
+            $table->integer("view_count")->default(0);
             $table->boolean("in_voting")->default(false);
-            $table->integer("to_delete_count")->comment("when in_voting is true");
-            $table->integer("not_to_delete_count")->comment("when in_voting is true");
+            $table->integer("to_delete_count")->default(0)->comment("when in_voting is true");
+            $table->integer("not_to_delete_count")->default(0)->comment("when in_voting is true");
             $table->text("image")->nullable();
             $table->text("video")->nullable();
             $table->text("audio")->nullable();
