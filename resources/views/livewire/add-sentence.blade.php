@@ -98,7 +98,7 @@
         </div>
     </div>
 </div>
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", (event) => {
         document.addEventListener('livewire:initialized', () => {
             @this.on('successed-add-sentence', (message) => {
@@ -114,4 +114,4 @@
             });
         });
     });
-</script>
+</script> --}}
