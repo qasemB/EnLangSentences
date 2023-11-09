@@ -140,3 +140,38 @@ footer{
     /* top: unset !important; */
     overflow: auto;
 }
+
+#speech_record_btn.holded::before{
+
+}
+
+#speech_record_btn_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#speech_record_btn_box.holded::before{
+    content: "";
+    border: 1px solid blue;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    display: block;
+    position: absolute;
+    animation: slide-in 2s infinite;
+}
+
+@keyframes slide-in {
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        width: 200px;
+        height: 200px;
+    }
+  }
+

@@ -1,4 +1,5 @@
 <nav class="navbar bg_blue">
+    {{-- {{dd(request()->route()->uri())}} --}}
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img src="/images/logo.png" alt="Bootstrap" width="30" height="24"
@@ -34,25 +35,36 @@
             <div class="offcanvas-body" id="main_menu">
                 <ul class="navbar-nav justify-content-end flex-grow-1 mt-4 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link text-center active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link text-center {{ request()->route()->uri() == '/'? 'active': '' }}"
+                            aria-current="page" href="/">Home</a>
                     </li>
                     @if (Auth::check())
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="#">Settings</a>
+                            <a class="nav-link text-center {{ request()->route()->uri() == 'settings'? 'active': '' }}"
+                                href="#">Settings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="#">Progress</a>
+                            <a class="nav-link text-center {{ request()->route()->uri() == 'progress'? 'active': '' }}"
+                                href="#">Progress</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-center" href="/logout">Logout</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="/login">Login</a>
+                            <a class="nav-link text-center {{ request()->route()->uri() == 'login'? 'active': '' }}"
+                                href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="/register">Register</a>
+                            <a class="nav-link text-center {{ request()->route()->uri() == 'register'? 'active': '' }}"
+                                href="/register">Register</a>
                         </li>
+                    @endif
+
+                    <hr class="border">
+
+                    @if (Auth::check())
+                        <livewire:menu-scores />
                     @endif
 
                 </ul>

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Category;
 use App\Models\Phrase;
 use App\Models\Sentence;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -73,6 +74,14 @@ class AddSentence extends Component
             $category->phrases()->attach($phraseIdsArr);
         }
 
+        // افزودن امتیاز------------------
+
+        $user = User::where('id', Auth::user()->id)->first();
+        $user->adding_score += ADD_SCORE;
+        if(sizeof(explode(" ", $this->description)) > 7){
+            $user->adding_score += ADD_DESCRIPTION_SCORE;
+        }
+        $user->save();
 
         $this->dispatch("fire-toastify", "Your sentence added sucessfully", "success");
         $this->reset('sentence', 'target_words', 'category_id', 'description');

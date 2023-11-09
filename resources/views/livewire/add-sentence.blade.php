@@ -2,9 +2,9 @@
     <div class="text-center mb-4">
         @if (Auth::check())
             <button class="btn btn-light text_blue shadow" data-bs-toggle="offcanvas"
-                data-bs-target="#addSentenceOffCanvas" aria-controls="addSentenceOffCanvas">Your own sentence</button>
+                data-bs-target="#addSentenceOffCanvas" aria-controls="addSentenceOffCanvas">Add your own sentence</button>
         @else
-            <a href="{{ route('login') }}" class="btn btn-light text_blue shadow">Your own sentence</a>
+            <a href="{{ route('login') }}" class="btn btn-light text_blue shadow">Add your own sentence</a>
         @endif
     </div>
 

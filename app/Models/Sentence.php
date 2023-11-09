@@ -16,4 +16,7 @@ class Sentence extends Model
     public function category(){
         return $this->belongsTo('App\Models\Category');
     }
+    public function users(){
+        return $this->belongsToMany('App\Models\User')->withPivot("count");
+    }
 }

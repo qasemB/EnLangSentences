@@ -17,4 +17,8 @@ class Phrase extends Model
         return $this->belongsToMany('App\Models\Category');
     }
 
+    public function users(){
+        return $this->belongsToMany('App\Models\User')->withPivot("count");
+    }
+
 }

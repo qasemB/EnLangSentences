@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function phrases(){
+        return $this->belongsToMany('App\Models\Phrase')->withPivot("count");
+    }
+
+    public function sentences(){
+        return $this->belongsToMany('App\Models\Sentence')->withPivot("count");
+    }
 }
