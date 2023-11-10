@@ -32,6 +32,7 @@ Route::middleware(["auth"])->group(function (){
 
 // rest routes--------------------------------->>>
 Route::get('/', [HomeController::class, "index"]);
+Route::get('/offline', function () {return view('offline');});
 
 
 

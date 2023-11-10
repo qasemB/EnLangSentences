@@ -195,3 +195,25 @@ footer {
     top: 3px;
     color: #eb1010;
 }
+
+#install-prompt{
+    position: fixed;
+    text-align: center;
+    height: 50px;
+    bottom: -59px;
+    background: #3182ce;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 7px;
+    transition: all 400ms ease;
+}
+
+#install-prompt.show{
+    bottom: 30px;
+}

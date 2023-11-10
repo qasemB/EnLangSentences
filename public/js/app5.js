@@ -1,13 +1,72 @@
+// SW initializing ------------------------
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+        .then(function (res) { console.log("SW installed..."); })
+        .catch(function (e) { console.log(e.message); });
+}
+//---------------------------
 
 
+
+// online status management-------------------
+if (!navigator.onLine && !window.location.href.includes("/offline")) window.location.replace("/offline")
+
+window.addEventListener("offline", () => {
+    window.location.replace("/offline")
+})
+window.addEventListener("online", () => {
+    window.location.replace("/")
+})
+//   -----------------------------
+
+
+
+
+// install prompt-------------
+var deferredPrompt;
+window.addEventListener("beforeinstallprompt", (e) => {
+    if (!window.matchMedia("(display-mode: standalone)").matches) {
+        setTimeout(() => {
+            document.getElementById("install-prompt")?.classList.add("show");
+        }, 5000);
+    }
+    e.preventDefault();
+    deferredPrompt = e;
+    return false;
+});
+document.getElementById("install-prompt")?.addEventListener("click", (e) => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        e.target.classList.remove("show");
+        deferredPrompt.userChoice.then((choiceRes) => {
+            console.log(choiceRes.outcome);
+            if (choiceRes.outcome === "accepted") {
+                console.log("User accepted the install prompt.");
+            } else if (choiceRes.outcome === "dismissed") {
+                console.log("User dismissed the install prompt");
+            }
+        });
+        deferredPrompt = null;
+    }
+});
+
+document.getElementById("close-install-prompt")?.addEventListener("click", (e) => {
+    e.stopPropagation()
+    document.getElementById("install-prompt").classList.remove("show")
+});
+//---------------------------------------
+
+
+
+// tooltip initializing------------------------
 document.addEventListener("DOMContentLoaded", (event) => {
-
-    // tooltip initializing------------------------
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
-
 });
+//-------------------------------
+
+
+
 // toastify firing function --------------------------
 var handleToastify = (message, type) => {
     Toastify({
@@ -32,7 +91,7 @@ var handleTypeWriter = (text, boxId) => {
     var txt = text;
     var speed = 50;
     let withColor = false
-    setTimeout(()=>typeWriter(), 500)
+    setTimeout(() => typeWriter(), 500)
     function typeWriter() {
         if (i < txt.length) {
             const letter = txt.charAt(i)
@@ -51,14 +110,14 @@ var handleTypeWriter = (text, boxId) => {
     }
 }
 
-var handleOnChangeAnswerInput = (inputId, patternElemId, bySpeech=false) => {
+var handleOnChangeAnswerInput = (inputId, patternElemId, bySpeech = false) => {
     const enteredValue = document.getElementById(inputId).value.trim().toLowerCase()
     const patternValue = document.getElementById(patternElemId).innerHTML.replaceAll(`<span class="text_pink">`, "").replaceAll(`</span>`, "").trim().toLowerCase()
     if (enteredValue == patternValue) {
         document.getElementById(inputId).classList.add("text-success")
         document.getElementById(inputId).classList.remove("text-danger")
         handleToastify("به درستی انجام شد", "success")
-        Livewire.dispatch("increase-score-res", {ok:true, bySpeech, byWrite: !bySpeech})
+        Livewire.dispatch("increase-score-res", { ok: true, bySpeech, byWrite: !bySpeech })
     } else {
         document.getElementById(inputId).classList.remove("text-success")
         document.getElementById(inputId).classList.add("text-danger")
@@ -81,7 +140,7 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
             if (result.includes("clean clean")) {
                 document.getElementById(inputId).value = ""
             } else {
-                document.getElementById(inputId).value += " "+result;
+                document.getElementById(inputId).value += " " + result;
                 handleOnChangeAnswerInput(inputId, patternElemId, true)
             }
         };
@@ -97,7 +156,7 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
         };
 
 
-        const startSpeech = ()=>{
+        const startSpeech = () => {
             Livewire.dispatch("reset-score")
             document.getElementById(btnBoxId).classList.add("holded")
             document.getElementById(patternElemId).classList.add("is_blur")
@@ -105,7 +164,7 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
             recognition.start();
         }
 
-        const endSpeech = ()=>{
+        const endSpeech = () => {
             document.getElementById(btnBoxId).classList.remove("holded")
             document.getElementById(patternElemId).classList.remove("is_blur")
             recognition.stop();
@@ -133,6 +192,19 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
     }
 
 }
+
+
+// Check browser------------------
+navigator.sayswho = () => {
+    var N = Navigator.appName, ua = navigator.userAgent, tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i);
+    if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) M[2] = tem[1];
+    M = M ? [M[1], M[2]] : [N, Navigator.appVersion, '-?'];
+    return M.join(' ');
+};
+if (!navigator.sayswho().includes("Chrome")) handleToastify("بهتره که از مرورگر کروم استفاده کنید", "warning")
+//---------------------------------
+
 
 
 document.addEventListener('livewire:initialized', () => {
