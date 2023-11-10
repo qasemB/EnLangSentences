@@ -36,7 +36,9 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
+        $remember = $request->rememberme == "on" ? true : false;
+
+        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password], $remember)) {
             return redirect("/")->with("successLogin", "You have successfully logged in");
         }else{
             return redirect()->back()->withErrors(["User does not exist"]);

@@ -98,20 +98,4 @@
         </div>
     </div>
 </div>
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", (event) => {
-        document.addEventListener('livewire:initialized', () => {
-            @this.on('successed-add-sentence', (message) => {
-                Toastify({
-                    text: message,
-                    className: "alert-success",
-                    gravity: "bottom", // `top` or `bottom`
-                    position: "center", // `left`, `center` or `right`
-                    style: {
-                        background: "linear-gradient(to right, #00b09b, #96c93d)",
-                    },
-                }).showToast();
-            });
-        });
-    });
-</script> --}}
+

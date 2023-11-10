@@ -77,10 +77,11 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
         // Define the event handler for the 'result' event
         recognition.onresult = function (event) {
             const result = event.results[event.results.length - 1][0].transcript;
+            console.log(result);
             if (result.includes("clean clean")) {
                 document.getElementById(inputId).value = ""
             } else {
-                document.getElementById(inputId).value += result;
+                document.getElementById(inputId).value += " "+result;
                 handleOnChangeAnswerInput(inputId, patternElemId, true)
             }
         };
