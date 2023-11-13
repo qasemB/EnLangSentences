@@ -1,24 +1,25 @@
 let staticItems = [
     // "/",
-    // "/bootstrap-5.2.3/css/bootstrap.min.css",
-    // "/fontawesome-free-6.4.2/css/all.min.css",
+    "/bootstrap-5.2.3/css/bootstrap.min.css",
+    "/fontawesome-free-6.4.2/css/all.min.css",
     // "/toastify/toastify.css",
     // "/css/style.css",
-    // "/js/app5.js",
+    // "/js/app.js",
+    "/js/pwa.js",
     // "/js/index.js",
     // "/images/logo.png",
     // "/manifest.json",
     // "/bootstrap-5.2.3/js/bootstrap.bundle.min.js",
     // "/toastify/toastify.js",
-    // "/fonts/fa/Dana-Medium.ttf",
+    "/fonts/fa/Dana-Medium.ttf",
     // "/images/lettersBack.png",
     // "/favicon.ico",
     "/offline",
-    // "/fontawesome-free-6.4.2/webfonts/fa-solid-900.woff2",
+    "/fontawesome-free-6.4.2/webfonts/fa-solid-900.woff2",
 ]
 
-let STATIC_CACHE = "static-v5"
-let DYNAMIC_CACHE = "dynamic-v5"
+let STATIC_CACHE = "static-v1"
+// let DYNAMIC_CACHE = "dynamic-v1"
 
 
 const trimCache = (chachName, max) => {

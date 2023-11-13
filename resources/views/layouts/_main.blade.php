@@ -55,7 +55,8 @@
     <script src="/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/toastify/toastify.js"></script>
     @livewireScripts
-    <script type="text/javascript" src="/js/app5.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/pwa.js"></script>
 
     @yield('pageJS')
 
