@@ -40,6 +40,7 @@ return new class extends Migration
             $table->integer("practicing_score")->default(0);
             $table->integer("practicing_count")->default(0);
             $table->timestamp("last_practice_at")->nullable();
+            $table->integer("practice_days")->default(0);
             $table->timestamps();
         });
     }

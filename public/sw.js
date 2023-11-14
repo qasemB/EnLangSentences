@@ -18,8 +18,8 @@ let staticItems = [
     "/fontawesome-free-6.4.2/webfonts/fa-solid-900.woff2",
 ]
 
-let STATIC_CACHE = "static-v1"
-// let DYNAMIC_CACHE = "dynamic-v1"
+let STATIC_CACHE = "static-v2"
+let DYNAMIC_CACHE = "dynamic-v2"
 
 
 const trimCache = (chachName, max) => {

@@ -13,6 +13,19 @@ use Livewire\Component;
 class TypingSentenceBox extends Component
 {
     public $oneSentence;
+    public $focused = 0;
+    public $showDescription = false;
+
+    #[On("handle-focus")]
+    public function handleFcouse($statusKey){
+        $this->focused = $statusKey;
+    }
+
+    public function handleShowDescription(){
+        if ($this->oneSentence->description != null) {
+            $this->showDescription = !$this->showDescription;
+        }
+    }
 
     private function getOeSentence()
     {
@@ -82,6 +95,10 @@ class TypingSentenceBox extends Component
     {
         $user = User::where('id', Auth::user()->id)->first();
         if ($iKnow) {
+            $c = new Carbon(Auth::user()->last_practice_at);
+            if(Carbon::now()->format("Y-m-d") != $c->format("Y-m-d")){
+                $user->practice_days += 1;
+            }
             $user->practicing_score += $currentScore;
             $user->last_practice_at = Carbon::now();
             $user->save();

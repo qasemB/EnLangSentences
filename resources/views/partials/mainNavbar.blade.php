@@ -6,6 +6,15 @@
                 style="filter: drop-shadow(0 0 2px blue)">
         </a>
         <livewire:offline-status/>
+        @if (Auth::check())
+            @php
+                $c = new Carbon\Carbon(Auth::user()->last_practice_at)
+            @endphp
+            @if (Carbon\Carbon::now()->format("Y-m-d") != $c->format("Y-m-d"))
+                <small class="text-white" title="Last practice at:">LP : {{$c->shortRelativeDiffForHumans()}}</small>
+            @endif
+        @endif
+
 
         <div class="rounded-circle border d-flex p-0 justify-content-center align-items-center navbar-toggler pointer"
             style="width:35px;height:35px" alt="Avatar" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"

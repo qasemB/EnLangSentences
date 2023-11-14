@@ -28,6 +28,7 @@ var handleToastify = (message, type) => {
 
 // handle typing function --------------
 var handleTypeWriter = (text, boxId) => {
+    document.getElementById(boxId).innerHTML = ""
     var i = 0;
     var txt = text;
     var speed = 50;
@@ -133,20 +134,6 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
     }
 
 }
-
-
-// Check browser------------------
-navigator.sayswho = () => {
-    var N = Navigator.appName, ua = navigator.userAgent, tem,
-        M = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i);
-    if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) M[2] = tem[1];
-    M = M ? [M[1], M[2]] : [N, Navigator.appVersion, '-?'];
-    return M.join(' ');
-};
-if (!navigator.sayswho().includes("Chrome")) handleToastify("بهتره که از مرورگر کروم استفاده کنید", "warning")
-//---------------------------------
-
-
 
 document.addEventListener('livewire:initialized', () => {
     Livewire.on('fire-toastify', ([message, type]) => {

@@ -56,3 +56,15 @@ document.getElementById("close-install-prompt")?.addEventListener("click", (e) =
     document.getElementById("install-prompt").classList.remove("show")
 });
 //---------------------------------------
+
+
+// Check browser------------------
+navigator.sayswho = () => {
+    var N = Navigator.appName, ua = navigator.userAgent, tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i);
+    if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) M[2] = tem[1];
+    M = M ? [M[1], M[2]] : [N, Navigator.appVersion, '-?'];
+    return M.join(' ');
+};
+if (!navigator.sayswho().includes("Chrome")) handleToastify("بهتره که از مرورگر کروم استفاده کنید", "warning")
+//---------------------------------

@@ -217,3 +217,17 @@ footer {
 #install-prompt.show{
     bottom: 30px;
 }
+
+.has_tag::before{
+    content: "...";
+    position: absolute;
+    top: -2px;
+    right: 24px;
+    width: 30px;
+    background: #292d3e;
+    text-align: center;
+    height: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px white;
+    cursor: pointer;
+}

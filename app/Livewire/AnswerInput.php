@@ -11,6 +11,7 @@ class AnswerInput extends Component
 
     public $currentScore= 0;
     public $totalScore = 0;
+    public $isEven;
 
     #[On("increase-score-res")]
     public function increaseScore($ok, $bySpeech, $byWrite){
@@ -25,6 +26,7 @@ class AnswerInput extends Component
     }
 
     public function submitAndGoNext($iKnow){
+        $this->getIsEvenRandom();
         if($iKnow) $this->currentScore += KNOW_SCORE;
         $this->dispatch("submit-and-next-sentence", currentScore: $this->currentScore, iKnow: $iKnow);
         $this->currentScore = 0;
@@ -35,7 +37,18 @@ class AnswerInput extends Component
         $this->totalScore = $score;
     }
 
+    public function handleFocus($statusKey){
+        $this->dispatch("handle-focus", statusKey: $statusKey);
+    }
+
+    public function getIsEvenRandom(){
+        $randomNumber = rand(1, 100);
+        $isEven = $randomNumber % 2 === 0;
+        $this->isEven = $isEven;
+    }
+
     public function mount(){
+        $this->getIsEvenRandom();
         if(Auth::check()){
             $this->totalScore = Auth::user()->practicing_score;
         }
