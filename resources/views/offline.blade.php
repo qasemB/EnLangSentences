@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/bootstrap-5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="/fontawesome-free-6.4.2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css" />
 
     <title>ELW</title>
 </head>

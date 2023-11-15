@@ -108,8 +108,8 @@ body {
 }
 
 #main_menu {
-    background: -webkit-gradient(linear, left top, left bottom, from(#ffffffbd), color-stop(rgba(255 255 255 / 80%)), to(#ffffff80)), url(../images/lettersBack.png) no-repeat;
-    background: linear-gradient(#ffffffbd, rgb(255 255 255 / 80%), #ffffff80), url(../images/lettersBack.png) no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffffbd), color-stop(rgba(255 255 255 / 80%)), to(#ffffff80)), url(/images/lettersBack.png) no-repeat;
+    background: linear-gradient(#ffffffbd, rgb(255 255 255 / 80%), #ffffff80), url(/images/lettersBack.png) no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

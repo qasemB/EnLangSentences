@@ -8,7 +8,7 @@
     <link href="/fontawesome-free-6.4.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/toastify/toastify.css">
     @livewireStyles
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/{{env("ASSETS_FOLDER")}}/css/style.css" />
     @yield('pageCss')
 
 
@@ -55,7 +55,7 @@
     <script src="/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/toastify/toastify.js"></script>
     @livewireScripts
-    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/{{env("ASSETS_FOLDER")}}/js/app.js"></script>
     <script type="text/javascript" src="/js/pwa.js"></script>
 
     @yield('pageJS')

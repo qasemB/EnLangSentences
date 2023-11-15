@@ -26,5 +26,5 @@
 
 
 @section('pageJS')
-    <script src="{{ asset('js/index.js') }}"></script>
+    <script src="/{{env("ASSETS_FOLDER")}}/js/index.js"></script>
 @endsection
