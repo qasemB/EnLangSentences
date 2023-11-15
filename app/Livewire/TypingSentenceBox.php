@@ -17,11 +17,13 @@ class TypingSentenceBox extends Component
     public $showDescription = false;
 
     #[On("handle-focus")]
-    public function handleFcouse($statusKey){
+    public function handleFcouse($statusKey)
+    {
         $this->focused = $statusKey;
     }
 
-    public function handleShowDescription(){
+    public function handleShowDescription()
+    {
         if ($this->oneSentence->description != null) {
             $this->showDescription = !$this->showDescription;
         }
@@ -37,32 +39,29 @@ class TypingSentenceBox extends Component
             })->inRandomOrder()->first();
 
             if ($sentense == null) {
-                $sentense = Sentence::select('sentences.*')
-                    ->join('sentence_user', 'sentences.id', '=', 'sentence_user.sentence_id')
-                    ->orderBy('sentence_user.count', 'asc')
-                    ->first();
+                $sentense = $user->sentences()->orderBy("count", 'asc')->first();
+                // $sentense = Sentence::with("users")->where('users', function ($query) use ($user) {
+                //     $query->where('user_id', $user->id);
+                // })->select('sentences.*')
+                //     ->join('sentence_user', 'sentences.id', '=', 'sentence_user.sentence_id')
+                //     ->orderBy('sentence_user.count', 'asc')
+                //     ->first();
             }
-        }elseif($user->see_all == 2){
+        } elseif ($user->see_all == 2) {
             $sentense = Sentence::where('author_id', $user->id)->whereDoesntHave('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->inRandomOrder()->first();
 
             if ($sentense == null) {
-                $sentense = Sentence::where('author_id', $user->id)->select('sentences.*')
-                    ->join('sentence_user', 'sentences.id', '=', 'sentence_user.sentence_id')
-                    ->orderBy('sentence_user.count', 'asc')
-                    ->first();
+                $sentense = $user->sentences()->where('author_id', $user->id)->orderBy("count", 'asc')->first();
             }
-        }elseif($user->see_all == 3){
-            $sentense = Sentence::where('author_id',"!=", $user->id)->whereDoesntHave('users', function ($query) use ($user) {
+        } elseif ($user->see_all == 3) {
+            $sentense = Sentence::where('author_id', "!=", $user->id)->whereDoesntHave('users', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->inRandomOrder()->first();
 
             if ($sentense == null) {
-                $sentense = Sentence::where('author_id',"!=", $user->id)->select('sentences.*')
-                    ->join('sentence_user', 'sentences.id', '=', 'sentence_user.sentence_id')
-                    ->orderBy('sentence_user.count', 'asc')
-                    ->first();
+                $sentense = $user->sentences()->where('author_id', "!=", $user->id)->orderBy("count", 'asc')->first();
             }
         }
 
@@ -83,8 +82,8 @@ class TypingSentenceBox extends Component
             foreach ($this->oneSentence->phrases as $phrase) {
                 $this->oneSentence->sentence = str_replace($phrase->title, "+$phrase->title+", $this->oneSentence->sentence);
             }
-        }else{
-            $this->oneSentence = ["sentence" => STATIC_SENTENCE_NOT_FOUND];
+        } else {
+            $this->oneSentence = ["sentence" => STATIC_SENTENCE_NOT_FOUND, "description" => null];
         }
         $this->dispatch("typing-one-sentence", $this->oneSentence, "typing_box");
     }
@@ -96,7 +95,7 @@ class TypingSentenceBox extends Component
         $user = User::where('id', Auth::user()->id)->first();
         if ($iKnow) {
             $c = new Carbon(Auth::user()->last_practice_at);
-            if(Carbon::now()->format("Y-m-d") != $c->format("Y-m-d")){
+            if (Carbon::now()->format("Y-m-d") != $c->format("Y-m-d")) {
                 $user->practice_days += 1;
             }
             $user->practicing_score += $currentScore;
