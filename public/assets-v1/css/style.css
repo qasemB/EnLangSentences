@@ -2,6 +2,8 @@
     --blue: #3182ce;
     --pink: #ed64a6;
     --dark: #292d3e;
+    --green: #1de9b6;
+    --danger: #e91e63;
 }
 
 @font-face {
@@ -36,6 +38,14 @@
 
 .text_pink {
     color: var(--pink);
+}
+
+.text_green {
+    color: var(--green);
+}
+
+.text_danger {
+    color: var(--danger);
 }
 
 .btn_blue {

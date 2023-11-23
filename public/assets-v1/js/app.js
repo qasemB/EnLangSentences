@@ -52,18 +52,36 @@ var handleTypeWriter = (text, boxId) => {
     }
 }
 
+let timeout;
 var handleOnChangeAnswerInput = (inputId, patternElemId, bySpeech = false) => {
+    let i = 0
+    document.getElementById("answer_box").innerHTML = ""
     const enteredValue = document.getElementById(inputId).value.trim().toLowerCase()
     const patternValue = document.getElementById(patternElemId).innerHTML.replaceAll(`<span class="text_pink">`, "").replaceAll(`</span>`, "").trim().toLowerCase()
-    if (enteredValue == patternValue) {
-        document.getElementById(inputId).classList.add("text-success")
-        document.getElementById(inputId).classList.remove("text-danger")
-        handleToastify("به درستی انجام شد", "success")
-        Livewire.dispatch("increase-score-res", { ok: true, bySpeech, byWrite: !bySpeech })
-    } else {
-        document.getElementById(inputId).classList.remove("text-success")
-        document.getElementById(inputId).classList.add("text-danger")
+    const trimedPatternValue = patternValue.replaceAll(/[^a-zA-Z \s]/g, '')
+    const trimedPatternValueArr = trimedPatternValue.split(" ")
+
+    const enteredValuesArr = enteredValue.split(" ")
+
+    for (const enteredVal of enteredValuesArr) {
+        let trimEnteredVal = enteredVal.replaceAll(/[^a-zA-Z]/g, '').trim()
+        var spanElement = document.createElement("span");
+        spanElement.textContent = enteredVal;
+        if (trimedPatternValueArr.includes(trimEnteredVal)) {
+            spanElement.classList.add("text_green");
+            console.log();
+            i++
+        }else{
+            spanElement.classList.add("text_danger");
+            // newEnteredVal = newEnteredVal.replaceAll(enteredVal, `<span class="text_danger">${enteredVal}</span>`)
+        }
+        document.getElementById("answer_box").appendChild(spanElement)
+        document.getElementById("answer_box").innerHTML+= " "
     }
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(()=>{
+        Livewire.dispatch("increase-score-res", { ok: i, bySpeech, byWrite: !bySpeech })
+    },2000)
 }
 
 var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
@@ -135,6 +153,72 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
 
 }
 
+let transLateTimeOut;
+var handleTranslate = (patternElemId)=>{
+    if (transLateTimeOut) clearTimeout(transLateTimeOut)
+    const str = document.getElementById(patternElemId).innerHTML.replaceAll(`<span class="text_pink">`, "").replaceAll(`</span>`, "").trim().toLowerCase()
+    loading(true)
+    fetch(
+        `https://one-api.ir/translate/?token=576329:651ea8266c711&action=google&lang=fa&q=${str}`
+    )
+        .then(res => res.json())
+        .then(res => {
+            if (res.status == 200) {
+                document.getElementById("translation_box").innerHTML = res.result
+                transLateTimeOut = setTimeout(()=>{
+                    document.getElementById("translation_box").innerHTML = ""
+                },10000)
+            }
+        })
+        .finally(()=>{
+            loading(false)
+        })
+}
+
+var handleStartSpeack = (patternElemId)=>{
+    loading(true)
+    const str = document.getElementById(patternElemId).innerHTML
+        .replaceAll(`<span class="text_pink">`, "")
+        .replaceAll(`</span>`, "")
+        .replaceAll(/[^a-zA-Z \s]/g, '')
+        .trim().toLowerCase()
+
+    // fetch(`https://one-api.ir/tts/?token=134476:655f6ffad59e6&action=microsoft&lang=en-US&q=${str}`)
+    fetch(`https://one-api.ir/tts/?action=google&token=134476:655f6ffad59e6&lang=en&q=${str}`)
+        .then(response => {
+            console.log(response);
+            return response.blob()
+        })
+        .then(blob => {
+            // Create an audio element
+            const audio = new Audio();
+            audio.src = URL.createObjectURL(blob);
+            audio.play();
+
+            // const formData = new FormData();
+            // formData.append('audio', blob, 'audio.wav');
+            // fetch('your-server-endpoint', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            //     .then(response => {
+            //         // Handle the server response
+            //     })
+            //     .catch(error => {
+            //         // Handle any errors
+            //     });
+        })
+        .finally(() => {
+            loading(false)
+        })
+
+
+}
+
+var loading = (status)=>{
+    Livewire.dispatch("handle-set-loading", {status})
+}
+
 document.addEventListener('livewire:initialized', () => {
     Livewire.on('fire-toastify', ([message, type]) => {
         handleToastify(message, type)
@@ -149,5 +233,30 @@ document.addEventListener('livewire:initialized', () => {
     });
 });
 
+
+        // // Create an AudioContext
+        // const audioContext = new AudioContext();
+
+        // // Fetch the audio stream
+        // fetch(`https://one-api.ir/tts/?token=134476:655f6ffad59e6&action=microsoft&lang=en-US&q=${str}`)
+        //     .then(response => response.arrayBuffer())
+        //     .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+        //     .then(audioBuffer => {
+        //         // Create a source node
+        //         const source = audioContext.createBufferSource();
+        //         source.buffer = audioBuffer;
+
+        //         // Connect the source node to the destination (i.e., speakers)
+        //         source.connect(audioContext.destination);
+
+        //         // Start playing the audio
+        //         source.start();
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching or decoding audio stream:', error);
+        //     })
+        //     .finally(()=>{
+        //         loading(false)
+        //     })
 
 

@@ -80,7 +80,13 @@ class TypingSentenceBox extends Component
     {
         if ($this->oneSentence != null) {
             foreach ($this->oneSentence->phrases as $phrase) {
-                $this->oneSentence->sentence = str_replace($phrase->title, "+$phrase->title+", $this->oneSentence->sentence);
+                $ph = trim($phrase->title);
+                if (strpos($this->oneSentence->sentence, $ph)) {
+                    $this->oneSentence->sentence = str_replace($ph, "+$ph+", $this->oneSentence->sentence);
+                }else{
+                    $ph = strtolower($ph);
+                    $this->oneSentence->sentence = str_replace($ph, "+$ph+", $this->oneSentence->sentence);
+                }
             }
         } else {
             $this->oneSentence = ["sentence" => STATIC_SENTENCE_NOT_FOUND, "description" => null];
