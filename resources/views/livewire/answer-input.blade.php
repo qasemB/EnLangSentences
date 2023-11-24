@@ -9,7 +9,7 @@
     <div wire:ignore id="translation_box" class="text-center mt-4">
 
     </div>
-    <div class="w-100 w-md-50 p-3 rounded shadow mt-4">
+    <div class="w-100 w-md-50 p-3 rounded shadow mt-4 position-relative">
         {{-- <label>Now it's your turn, write the above</label> --}}
         <label style="direction: rtl" class="d-block">
             الان نوبت توئه، جمله رو
@@ -21,9 +21,14 @@
             <span class="text_pink">تایپ کن</span>
         </label>
         <textarea wire:ignore wire:focusin="handleFocus(1)" wire:focusout="handleFocus(0)" onpaste="return false;" id="typing_input"
-            class="form-control" style="height: 60px"></textarea>
+            class="form-control" style="height: 60px;color: transparent;caret-color: black;"></textarea>
 
-        <div wire:ignore id="answer_box"></div>
+        <div wire:ignore id="answer_box" style="
+        position: absolute;
+        top: 47px;
+        left: 29px;
+        pointer-events: none;
+        "></div>
 
         <div id="speech_record_btn_box" class="position-relative mt-3">
             <span style="position: absolute; left: 5px">

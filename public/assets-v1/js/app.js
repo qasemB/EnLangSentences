@@ -69,7 +69,6 @@ var handleOnChangeAnswerInput = (inputId, patternElemId, bySpeech = false) => {
         spanElement.textContent = enteredVal;
         if (trimedPatternValueArr.includes(trimEnteredVal)) {
             spanElement.classList.add("text_green");
-            console.log();
             i++
         }else{
             spanElement.classList.add("text_danger");
@@ -99,8 +98,10 @@ var handleSpeechRecord = (inputId, speechBtnId, btnBoxId, patternElemId) => {
             console.log(result);
             if (result.includes("clean clean")) {
                 document.getElementById(inputId).value = ""
+                document.getElementById("answer_box").innerHTML = ""
             } else {
                 document.getElementById(inputId).value += " " + result;
+                document.getElementById(inputId).value = document.getElementById(inputId).value.trim()
                 handleOnChangeAnswerInput(inputId, patternElemId, true)
             }
         };
@@ -165,9 +166,9 @@ var handleTranslate = (patternElemId)=>{
         .then(res => {
             if (res.status == 200) {
                 document.getElementById("translation_box").innerHTML = res.result
-                transLateTimeOut = setTimeout(()=>{
-                    document.getElementById("translation_box").innerHTML = ""
-                },10000)
+                // transLateTimeOut = setTimeout(()=>{
+                    // document.getElementById("translation_box").innerHTML = ""
+                // },10000)
             }
         })
         .finally(()=>{
@@ -184,7 +185,8 @@ var handleStartSpeack = (patternElemId)=>{
         .trim().toLowerCase()
 
     // fetch(`https://one-api.ir/tts/?token=134476:655f6ffad59e6&action=microsoft&lang=en-US&q=${str}`)
-    fetch(`https://one-api.ir/tts/?action=google&token=134476:655f6ffad59e6&lang=en&q=${str}`)
+    fetch(`https://one-api.ir/tts/?action=google&token=134476:655f6ffad59e6&lang=en-US&q=${str}`)
+    // fetch(`https://one-api.ir/tts/?action=google&token=576329:651ea8266c711&lang=en-US&q=${str}`)
         .then(response => {
             console.log(response);
             return response.blob()
@@ -231,6 +233,7 @@ document.addEventListener('livewire:initialized', () => {
     Livewire.on('submit-and-next-sentence', () => {
         document.getElementById("typing_input").value = ""
         document.getElementById("answer_box").innerHTML = ""
+        document.getElementById("translation_box").innerHTML = ""
     });
 });
 
