@@ -230,6 +230,7 @@ document.addEventListener('livewire:initialized', () => {
 
     Livewire.on('submit-and-next-sentence', () => {
         document.getElementById("typing_input").value = ""
+        document.getElementById("answer_box").innerHTML = ""
     });
 });
 
