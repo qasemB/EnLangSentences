@@ -25,6 +25,7 @@ class AuthController extends Controller
         $user = new User();
         $user->phone = $request->phone;
         $user->password = bcrypt($request->password);
+        $user->see_all = 2;
         $user->save();
 
         return redirect("/login");

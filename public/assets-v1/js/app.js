@@ -27,7 +27,7 @@ var handleToastify = (message, type) => {
 }
 
 // handle typing function --------------
-var handleTypeWriter = (text, boxId) => {
+var handleTypeWriter = (text, boxId, isTranslated= false) => {
     document.getElementById(boxId).innerHTML = ""
     var i = 0;
     var txt = text;
@@ -48,6 +48,10 @@ var handleTypeWriter = (text, boxId) => {
             }
             i++;
             setTimeout(typeWriter, speed);
+        }else{
+            if (isTranslated) {
+                handleTranslate("typing_box")
+            }
         }
     }
 }
@@ -162,7 +166,13 @@ var handleTranslate = (patternElemId)=>{
     fetch(
         `https://one-api.ir/translate/?token=576329:651ea8266c711&action=google&lang=fa&q=${str}`
     )
-        .then(res => res.json())
+        .then(res => {
+            if (res.status == 200) {
+                return res.json()
+            }else{
+                handleToastify("نشد...! دوباره تلاش کن")
+            }
+        })
         .then(res => {
             if (res.status == 200) {
                 document.getElementById("translation_box").innerHTML = res.result
@@ -174,6 +184,7 @@ var handleTranslate = (patternElemId)=>{
         .finally(()=>{
             loading(false)
         })
+
 }
 
 var handleStartSpeack = (patternElemId)=>{
@@ -226,8 +237,8 @@ document.addEventListener('livewire:initialized', () => {
         handleToastify(message, type)
     });
 
-    Livewire.on('typing-one-sentence', ([data, boxId]) => {
-        handleTypeWriter(data.sentence, boxId)
+    Livewire.on('typing-one-sentence', ([data, boxId, isTranslated]) => {
+        handleTypeWriter(data.sentence, boxId, isTranslated)
     });
 
     Livewire.on('submit-and-next-sentence', () => {

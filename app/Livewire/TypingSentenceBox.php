@@ -15,6 +15,7 @@ class TypingSentenceBox extends Component
     public $oneSentence;
     public $focused = 0;
     public $showDescription = false;
+    public $isTranslated = false;
 
     #[On("handle-focus")]
     public function handleFcouse($statusKey)
@@ -91,7 +92,7 @@ class TypingSentenceBox extends Component
         } else {
             $this->oneSentence = ["sentence" => STATIC_SENTENCE_NOT_FOUND, "description" => null];
         }
-        $this->dispatch("typing-one-sentence", $this->oneSentence, "typing_box");
+        $this->dispatch("typing-one-sentence", $this->oneSentence, "typing_box", $this->isTranslated);
     }
 
 
